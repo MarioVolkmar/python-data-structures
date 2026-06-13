@@ -302,5 +302,480 @@ while True:
     else:
         print("Error")
 
-## 
+## Sistema de usuarios
 
+usuarios = []
+
+while True:
+    s = input("1. Registrar usuario 2. Login 3. Desconectar  4. Ver usuarios 5. Desactivar usuario 6. Salir ")
+    if s == "1":
+        usuario = input("Usuario: ")
+        password = input("Clave: ")
+        estado = True
+        login = False
+        u = {
+            "usuario" : usuario.strip() ,
+            "password" : password.strip(),
+            "estado" : estado ,
+            "login" : login
+        }
+        for cl in usuarios:
+            if cl["usuario"] == usuario:
+                print("Usuario ya en uso")
+                break
+        else:
+            usuarios.append(u)
+    elif s == "2":
+        busq = input("Usuario: ")
+        clave = input("Contraseña: ")
+        for u in usuarios:
+            if (u["usuario"] == busq.strip() and u["password"] == clave.strip()) and u["estado"]:
+                print("Ingreso concedido")
+                u["login"] = True
+                break
+        else:
+            print("Clave o usuario errados")
+    elif s == "3":
+        busq = input("Usuario: ")
+        for u in usuarios:
+            if u["usuario"] == busq and u["login"]:
+                print("Desconexion exitosa")
+                u["login"] = False
+                break
+        else:
+            print("Error")
+    elif s == "4":
+        print(usuarios)
+    elif s == "5":
+        busq = input("Usuario: ")
+        for u in usuarios:
+            if u["usuario"] == busq.strip() and u["login"]:
+                print("Cambio de estado generado")
+                u["estado"] = False
+                u["login"] = False
+                break
+        else:
+            print("Error Login")
+    elif s == "6":
+        break
+    else:
+        print("Error")
+
+
+## Biblioteca básica
+
+libros = []
+
+while True:
+    s = input("1. Agregar libro 2. Ver libros 3. Buscar libro 4. Prestar libro 5. Devolver libro 6. Salir ")
+    if s == "1":
+        titulo = input("Titulo: ")
+        autor = input("Autor: ")
+        libro = {
+            "titulo" : titulo ,
+            "autor" : autor ,
+            "disponible" : True
+        }
+        libros.append(libro)
+    elif s == "2":
+        print(libros)
+    elif s == "3":
+        busq = input("Titulo: ")
+        for l in libros:
+            if l["titulo"] == busq:
+                print(f"Encontrado {l}")
+                break
+        else:
+            print("No existe")
+    elif s == "4":
+        busq = input("Titulo: ")
+        for l in libros:
+            if l["titulo"] == busq and l["disponible"]:
+                l["disponible"] = False
+                print(f"Prestamo ejecutado {l}")
+                break
+        else:
+            print("Error")
+    elif s == "5":
+        busq = input("Titulo: ")
+        for l in libros:
+            if l["titulo"] == busq and not l["disponible"]:
+                l["disponible"] = True
+                print(f"Devolucion ejecutada {l}")
+                break
+        else:
+            print("Error")
+    elif s == "6":
+        break
+    else:
+        print("Error input")
+
+
+## Control de gastos
+
+gastos = []
+
+while True:
+    s = input("1. Agregar gasto 2. Ver gastos 3. Total gastado 4. Total por categoría 5. Salir ")
+    if s == "1":
+        descripcion = input("Gasto: ")
+        categoria = input("Categoria: ")
+        valor = float(input("Valor: "))
+        gasto = {
+            "descripcion" : descripcion ,
+            "categoria" : categoria ,
+            "valor" : valor
+        }
+        gastos.append(gasto)
+    elif s == "2":
+        print(gastos)
+    elif s == "3":
+        total = 0
+        for g in gastos:
+            total += g["valor"]
+        print(f"Total {total}")
+    elif s == "4":
+        categorias = {}
+        for g in gastos:
+            if g["categoria"] not in categorias:
+                categorias[g["categoria"]] = 0
+            categorias[g["categoria"]] += g["valor"]
+        print(categorias)
+    elif s == "5":
+        break
+    else:
+        print("Error input")
+
+## Registro de ventas
+
+ventas = []
+
+while True:
+    s = input("1. Registrar venta 2. Ver ventas 3. Calcular ingresos totales 4. Producto más vendido 5. Salir ")
+    if s == "1":
+        producto = input("Producto: ")
+        cantidad = int(input("Cantidad: "))
+        precio = float(input("Precio: "))
+        v = {
+            "producto" : producto ,
+            "cantidad" : cantidad ,
+            "precio" : precio
+        }
+        ventas.append(v)
+    elif s == "2":
+        print(ventas)
+    elif s == "3":
+        total = 0
+        for v in ventas:
+            total += (v["precio"] * v["cantidad"])
+        print(f"El total fue: {total}")
+    elif s == "4":
+        max = ventas[0]
+        for v in ventas:
+            if v["cantidad"] > max["cantidad"]:
+                max = v
+        print(f"El producto mas vendido es: {max}")
+    elif s == "5":
+        break
+    else:
+        input("Error input")
+
+## Encuesta simple
+
+respuestas = []
+
+while True:
+    s = input("1. Agregar respuesta 2. Ver respuestas 3. Contar sí 4. Contar no 5. Salir ")
+    if s == "1":
+        pregunta = input("Pregunta: ")
+        respuesta = input("Si o No: ")
+        if respuesta.lower() == "si":
+            r = True
+        else:
+            r = False
+        ingreso = {
+            "pregunta" : pregunta,
+            "respuesta" : r
+        }
+        respuestas.append(ingreso)
+    elif s == "2":
+        print(respuestas)
+    elif s == "3":
+        sis = 0
+        for r in respuestas:
+            if r["respuesta"]:
+                sis += 1
+        print(f"Afirmativas: {sis}")
+    elif s == "4":
+        nos = 0
+        for r in respuestas:
+            if not r["respuesta"]:
+                nos += 1
+        print(f"Negativas: {nos}")
+    elif s == "5":
+        break
+    else:
+        print("Error input")
+
+## Sistema de cursos
+
+cursos = []
+
+while True:
+    s = input("1. Crear curso 2. Ver cursos 3. Agregar estudiante a curso 4. Ver estudiantes de un curso 5. Salir ")
+    if s == "1":
+        nombre = input("Nombre Curso: ")
+        for curso in cursos:
+            if curso["nombre"] == nombre:
+                print("El curso ya exite")
+                break
+        else:
+            c = {
+                    "nombre" : nombre ,
+                    "estudiantes" : []
+                }
+            cursos.append(c)
+    elif s == "2":
+        print(cursos)
+    elif s == "3":
+        busq = input("Curso ")
+        for c in cursos:
+            if c["nombre"].lower() == busq.lower():
+                while True:
+                    est = input("Ingrese el estudiante / 0 para Salir")
+                    if est == "0":
+                        break
+                    c["estudiantes"].append(est)
+                break
+        else: 
+            print("El curso no existe")
+    elif s == "4":
+        busq = input("Curso ")
+        for c in cursos:
+            if c["nombre"].lower() == busq.lower():
+                print(f"Curso: {c}")
+    elif s== "5":
+        break
+    else:
+        print("Error input")
+
+## Gestor de proyectos
+
+proyectos = []
+
+while True:
+    s = input("1. Crear proyecto 2. Agregar tarea a proyecto 3. Ver proyectos 4. Marcar tarea como completada 5. Salir ")
+    if s == "1":
+        nombre = input("Nombre proyecto: ")
+        for p in proyectos:
+            if p["nombre"] == nombre:
+                print("Ese proyecto ya existe")
+                break
+        else:
+            proy = {
+                "nombre" : nombre ,
+                "tareas" : []
+            }
+            proyectos.append(proy)
+    elif s == "2":
+        busq = input("Nombre proyecto: ")
+        for p in proyectos:
+            if p["nombre"] == busq:
+                while True:
+                    titulo = input("Ingresa tarea // Marca 0 para salir ")
+                    if titulo == "0":
+                        break
+                    tarea ={
+                        "titulado" : titulo,
+                        "estado" : False
+                    }
+                    p["tareas"].append(tarea)
+                break
+        else:
+            print("No existe ese proyecto")
+    elif s == "3":
+        print(proyectos)
+    elif s == "4":
+        busq = input("Nombre proyecto: ")
+        for p in proyectos:
+            if p["nombre"] == busq:
+                busq_tarea = input("Nombre tarea: ")
+                for t in p["tareas"]:
+                    if t["titulado"] == busq_tarea:
+                        t["estado"] = True
+                        print(f"Estado de {t} actualizado")
+                        break
+                else:
+                    print("No existe esa tarea")
+                break
+        else:
+            print("No existe ese proyecto")
+    elif s  == "5":
+        break
+    else:
+        print("Error input")
+
+## Sistema de soporte básico
+
+tickets = []
+
+while True:
+    s = input("1. Crear ticket 2. Ver tickets 3. Buscar ticket por id 4. Cerrar ticket 5. Salir ")
+    if s == "1":
+        id = str(len(tickets) + 1)
+        cliente = input("Nombre cliente: ")
+        problema = input("Queja: ")
+        estado = True
+        t = {
+            "id" : id ,
+            "cliente" : cliente ,
+            "problema" : problema ,
+            "estado" : estado
+        }
+        tickets.append(t)
+    elif s == "2":
+        print(tickets)
+    elif s == "3":
+        busq = input("Id: ")
+        for t in tickets:
+            if t["id"] == busq:
+                print(f"Ticket encotrado: {t}")
+                break
+        else:
+            print("No existe ese ticket")
+    elif s == "4":
+        busq = input("Id: ")
+        for t in tickets:
+            if t["id"] == busq:
+                t["estado"] = False
+                print(f"Ticket cerrado - {t}")
+                break
+        else:
+            print("No existe ese ticket") 
+    elif s == "5":
+        break
+    else:
+        print("Error input")  
+
+
+## Procesador de texto simple
+
+texto = input("Ingresa texto: ")
+
+texto_aux = texto.strip().lower().split()
+texto = " ".join(texto_aux).capitalize()
+
+c_palabras = len(texto_aux)
+max_palabra = max(texto_aux, key = len)
+
+c_py = 0
+for p in texto_aux:
+    if p.lower() == "python":
+        c_py += 1
+
+slug = []
+for p in texto_aux:
+    if len(p) >= 3 and p not in slug:
+            slug.append(p)
+slug = "-".join(slug)
+
+print(texto, c_palabras , max_palabra, c_py, slug)
+
+## Mini CRM de clientes
+
+clientes = []
+
+while True:
+    s = input("1. Agregar cliente 2. Ver clientes 3. Buscar cliente por email 4. Cambiar estado 5. Filtrar por estado 6. Salir ")
+    if s == "1":
+        id = str(len(clientes) + 1)
+        nombre = input("Nombre cliente: ")
+        email = input("Email cliente ")
+        for c in clientes:
+            if c["email"] == email:
+                print("Error, email ya usado")
+                break
+        else:
+            while True:
+                estado = input("1. Prospecto 2. Contactado 3. Cliente 4. Inactivo ")
+                if estado == "1":
+                    estado = "Prospecto"
+                    break
+                elif estado == "2":
+                    estado = "Contactado"
+                    break
+                elif estado == "3":
+                    estado = "Cliente"
+                    break
+                elif estado == "4":
+                    estado = "Inactivo"
+                    break
+                else: 
+                    print("Error input")
+            cliente = {
+                "id" : id ,
+                "nombre" : nombre ,
+                "email" : email ,
+                "estado" : estado
+            }
+            clientes.append(cliente)
+    elif s == "2":
+        print(clientes)
+    elif s == "3":
+        busq = input("Email cliente: ")
+        for c in clientes:
+            if c["email"] == busq:
+                print(f"Cliente encontrado - {c}")
+                break
+        else:
+            print("Correo no existe")
+    elif s == "4":
+        busq = input("Id cliente: ")
+        for c in clientes:
+            if c["id"] == busq:
+                while True:
+                    estado = input("Nuevo Estado - MARCA // 1. Prospecto 2. Contactado 3. Cliente 4. Inactivo ")
+                    if estado == "1":
+                        c["estado"] = "Prospecto"
+                        break
+                    elif estado == "2":
+                        c["estado"] = "Contactado"
+                        break
+                    elif estado == "3":
+                        c["estado"] = "Cliente"
+                        break
+                    elif estado == "4":
+                        c["estado"] = "Inactivo"
+                        break
+                    else: 
+                        print("Error input")
+                print(f"Estado actualizado - {c}")
+                break
+        else:
+            print("No existe ese ID")
+    elif s == "5":
+        res = []
+        while True:
+                estado = input("Busqueda Estado - MARCA // 1. Prospecto 2. Contactado 3. Cliente 4. Inactivo ")
+                if estado == "1":
+                    estado = "Prospecto"
+                    break
+                elif estado == "2":
+                    estado = "Contactado"
+                    break
+                elif estado == "3":
+                    estado = "Cliente"
+                    break
+                elif estado == "4":
+                    estado = "Inactivo"
+                    break
+                else: 
+                    print("Error input")
+        for c in clientes:
+            if c["estado"] == estado:
+                res.append(c)
+        print(f"Clientes con estado {estado} son: {res}")
+    elif s == "6":
+        break
+    else:
+        print("Error input")
